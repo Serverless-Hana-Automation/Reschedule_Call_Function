@@ -25,7 +25,7 @@ functions:
     description: Reschedule Call Function
     events:
       - s3:
-          bucket: RescheduleCallBucket
+          bucket: reschedule-call-bucket
           event: s3:ObjectCreated:*
 
     # package:
