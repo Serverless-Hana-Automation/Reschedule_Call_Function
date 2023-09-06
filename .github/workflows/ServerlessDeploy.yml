@@ -40,12 +40,14 @@ jobs:
       - name: Check docker version
         run: docker --version
 
+      - name: List all files in pwd
+        run: ls -la
+
       - name: Deploy to AWS Lambda
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-         sls deploy --stage staging
-
+          sls deploy --stage staging
 
 #run
