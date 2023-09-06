@@ -30,6 +30,7 @@ functions:
           rules:
             - prefix: unanswered/
             - suffix: .xlsx
+          existing: true
 
     package:
       patterns:
