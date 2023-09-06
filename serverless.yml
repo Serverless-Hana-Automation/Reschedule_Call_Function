@@ -30,8 +30,6 @@ functions:
           rules:
             - prefix: unanswered/
             - suffix: .xlsx
-          existing: true
-          forceDeploy: true
 
     package:
       patterns:
