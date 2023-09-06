@@ -27,6 +27,9 @@ functions:
       - s3:
           bucket: reschedule-call-bucket
           event: s3:ObjectCreated:*
+          rules:
+            - prefix: unanswered/
+            - suffix: .xlsx
 
     # package:
     #   patterns:
