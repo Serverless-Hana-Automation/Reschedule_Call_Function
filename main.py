@@ -3,16 +3,19 @@ import logging
 
 bucket_name = 'reschedule-call-bucket'
 object_key = 'schedule_call.xlsx'
+logger=logging.getLogger()
+logger.setLevel(logging.INFO)
 
-def main():
+def main(event,context):
+
     logger.info("Event : {}".format(event))
     
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = event['Records'][0]['s3']['object']['key']
     print(event['Records'])
 
-    Bucket = "reschedule-call-bucket"
-    Key = "schedule_call.xlsx"
+    # Bucket = "reschedule-call-bucket"
+    # Key = "schedule_call.xlsx"
 
     input_file = app.get_file_from_s3(bucket_name, object_key)
     
