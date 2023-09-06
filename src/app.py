@@ -19,8 +19,8 @@ TABLE_NAME= os.environ["TABLE_NAME"]
 REGION= os.environ["REGION"]
 
 
-dynamodb = boto3.resource("dynamodb",region_name='REGION')
-table= dynamodb.Table("TABLE_NAME")
+dynamodb = boto3.resource("dynamodb",region_name= REGION)
+table= dynamodb.Table(TABLE_NAME)
 
 def split_numbers(input_file, num_of_sheets):
     # Load the original Excel file into a DataFrame
