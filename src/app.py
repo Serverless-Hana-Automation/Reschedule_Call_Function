@@ -15,8 +15,8 @@ import os
 from random import shuffle
 
 
-TABLE_NAME= os.environ("TABLE_NAME")
-REGION= os.environ("REGION")
+TABLE_NAME= os.environ["TABLE_NAME"]
+REGION= os.environ["REGION"]
 
 
 dynamodb = boto3.resource("dynamodb",region_name='REGION')
