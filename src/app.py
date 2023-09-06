@@ -99,6 +99,7 @@ def get_file_from_s3(bucket_name, object_key):
     s3 = boto3.client("s3",region_name='ap-southeast-1')
     response = s3.get_object(Bucket=bucket_name, Key=object_key)
     file_contents = response['Body'].read()
+    print(file_contents)
     return file_contents
 
 
