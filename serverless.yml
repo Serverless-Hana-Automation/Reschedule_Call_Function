@@ -34,6 +34,6 @@ functions:
     #     - "!yarn.lock"
 
     environment:
-      KEY: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/TABLE_NAME}"
+      TABLE_NAME: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/TABLE_NAME}"
       REGION: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/REGION}"
       VALUE: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/ROLE}"
