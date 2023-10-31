@@ -38,6 +38,7 @@ functions:
         - ".serverless"
 
     environment:
-      TABLE_NAME: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/TABLE_NAME}"
+      TABLE_NAME_1: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/TABLE_NAME_1}"
       REGION: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/REGION}"
       VALUE: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/ROLE}"
+      BUCKET_NAME: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/BUCKET_NAME}"
