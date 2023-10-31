@@ -1,26 +1,8 @@
-try:
-    import unzip_requirements
-except ImportError:
-    pass
-
 import pandas as pd
-import xlsxwriter
-from openpyxl import load_workbook
 import json
-import pandas as pd
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 import uuid
-import boto3
-import os
 from random import shuffle
-
-
-TABLE_NAME= os.environ["TABLE_NAME"]
-REGION= os.environ["REGION"]
-
-
-dynamodb = boto3.resource("dynamodb",region_name= REGION)
-table= dynamodb.Table(TABLE_NAME)
 
 def split_numbers(input_file, num_of_sheets):
     # Load the original Excel file into a DataFrame
@@ -54,21 +36,27 @@ def split_numbers(input_file, num_of_sheets):
         start_idx = end_idx
     return batches_list
 
-def hourUpload(initialTimestamp, split_batches):
+def hourUpload(table, initialTimestamp, split_batches):
     for sheet_index, batch_df in enumerate(split_batches, start=1):
         dt = datetime.strptime(initialTimestamp, '%Y-%m-%dT%H:%M:%S+08:00')
         t_list = []
         uid = []
         Schedule_ID = []
+        current_hour_count = 0
 
         for i in range(len(batch_df)):
-            result1 = dt + timedelta(hours=sheet_index - 1, minutes=i)
+            result1 = dt + timedelta(hours=sheet_index - 1, minutes=current_hour_count)
             strf = datetime.strftime(result1, '%Y-%m-%dT%H:%M:%S+08:00')
             schedule_id = "Reschedule"
             t_list.append(strf)
             id = uuid.uuid4()
             uid.append(id)
             Schedule_ID.append(schedule_id)
+
+            current_hour_count += 1
+            # If the current hour count reaches 60, the remaining rows will be re-upload to the start of the current hour
+            if current_hour_count == 60:
+                sheet_index -= 1
 
         batch_df["Session_ID"] = uid
         batch_df["Phone_Number"] = "+" + batch_df["Phone_Number"].astype(str)
@@ -88,18 +76,16 @@ def hourUpload(initialTimestamp, split_batches):
             num["Policy_Number"]
             num["Schedule_Call_Timestamp"]
             num["Schedule_ID"]
-            response=table.put_item(Item=num)
+            table.put_item(Item=num)
             print(num)
             B += 1
 
         print(f'Batch {sheet_index}: {B} Data successfully uploaded !')
 
-def get_file_from_s3(bucket_name, object_key):
 
-    s3 = boto3.client("s3",region_name='ap-southeast-1')
-    response = s3.get_object(Bucket=bucket_name, Key=object_key)
+def get_file_from_s3(s3_client, bucket_name, object_key):
+
+    response = s3_client.get_object(Bucket=bucket_name, Key=object_key)
     file_contents = response['Body'].read()
     print(file_contents)
     return file_contents
-
-
