@@ -1,4 +1,4 @@
-service: Hana-Automation
+service: Hana-Automation-RescheduleCallFUnction
 
 provider:
   name: aws
@@ -30,7 +30,6 @@ functions:
           rules:
             - prefix: unanswered/
             - suffix: .xlsx
-          existing: true
 
     package:
       patterns:
