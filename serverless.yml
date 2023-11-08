@@ -1,4 +1,4 @@
-service: Hana-Automation-RescheduleCallFUnction
+service: RescheduleCallFUnction
 
 provider:
   name: aws
