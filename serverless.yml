@@ -8,8 +8,8 @@ provider:
   iam:
     role: "${ssm:/RescheduleCallFUnction/${sls:stage}/lambda/ROLE}"
 
-# package:
-#   individually: true
+package:
+  individually: true
 
 plugins:
   - serverless-python-requirements
