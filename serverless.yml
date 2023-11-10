@@ -1,4 +1,4 @@
-service: Hana-Automation
+service: Call-Scheduler-Automation
 
 provider:
   name: aws
