@@ -3,7 +3,7 @@ name: Serverless Deployment
 on:
   push:
     branches:
-      - master
+      - Automation-31.10.2023
 
 jobs:
   deploy:
