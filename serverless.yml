@@ -28,7 +28,7 @@ functions:
           bucket: reschedule-call-bucket
           event: s3:ObjectCreated:*
           rules:
-            - prefix: unanswered/
+            - prefix: Hana SMS Blast/
             - suffix: .xlsx
 
     package:
